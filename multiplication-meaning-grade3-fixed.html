@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>معنى الضرب - نماذج ومجموعات (الصف الثالث)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap');
+    *{font-family:"Tajawal",system-ui,sans-serif}
+    .card{box-shadow:0 18px 60px rgba(15,23,42,.12)}
+    .btn{border-radius:18px;font-weight:800;padding:14px 18px}
+    .pill{border-radius:999px;padding:6px 12px;font-weight:800;font-size:13px}
+    .shake{animation:shake .35s ease-in-out}
+    @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(6px)}50%{transform:translateX(-6px)}75%{transform:translateX(4px)}}
+    .pop{animation:pop .35s ease-in-out}
+    @keyframes pop{0%{transform:scale(.98)}60%{transform:scale(1.04)}100%{transform:scale(1)}}
+
+    /* Blocks (cubes) */
+    .groupCol{
+      display:flex; flex-direction:column; align-items:center; gap:8px;
+      padding:10px 12px; border-radius:20px; border:2px solid rgba(236,72,153,.2);
+      background: rgba(255,255,255,.85);
+      min-width: 90px;
+    }
+    .stack{display:flex; flex-direction:column; gap:6px; align-items:center}
+    .cube{
+      width:44px; height:44px; border-radius:14px;
+      border:2px solid rgba(0,0,0,.08);
+      box-shadow: 0 8px 16px rgba(0,0,0,.08);
+      background: linear-gradient(180deg, rgba(244,63,94,.95), rgba(190,18,60,.95));
+      position:relative;
+    }
+    .cube:before{
+      content:""; position:absolute; inset:8px;
+      border-radius:10px;
+      border:2px solid rgba(255,255,255,.25);
+    }
+    .cube:after{
+      content:""; position:absolute; left:10px; right:10px; top:18px; height:2px;
+      background: rgba(255,255,255,.25);
+      border-radius:999px;
+    }
+
+    /* Mini cubes for examples */
+    .miniCol{
+      display:flex; flex-direction:column; align-items:center; gap:6px;
+      padding:8px 10px; border-radius:18px; border:1.5px solid rgba(148,163,184,.35);
+      background: #fff;
+      min-width: 84px;
+    }
+    .miniStack{display:flex; flex-direction:column; gap:5px; align-items:center}
+    .miniCube{
+      width:26px; height:26px; border-radius:9px;
+      border:1.5px solid rgba(0,0,0,.08);
+      background: linear-gradient(180deg, rgba(244,63,94,.95), rgba(190,18,60,.95));
+      position:relative;
+    }
+    .miniCube:before{content:""; position:absolute; inset:5px; border-radius:7px; border:1.5px solid rgba(255,255,255,.22);}
+    .miniCube:after{content:""; position:absolute; left:6px; right:6px; top:11px; height:2px; background: rgba(255,255,255,.22); border-radius:999px;}
+
+    .numInput{
+      width:80px; height:56px;
+      text-align:center;
+      font-size:28px; font-weight:900;
+      border-width:4px;
+      border-radius:18px;
+      outline:none;
+      background:#fff;
+    }
+    .numInput:focus{box-shadow:0 0 0 6px rgba(236,72,153,.2)}
+    .eqBox{
+      min-width:78px; height:56px;
+      display:flex; align-items:center; justify-content:center;
+      border-width:4px; border-radius:18px;
+      font-size:28px; font-weight:900;
+      background:#fff;
+    }
+
+    @media(max-width:640px){
+      .groupCol{min-width:78px}
+      .cube{width:40px;height:40px;border-radius:12px}
+      .numInput{width:72px;height:54px;font-size:26px}
+      .eqBox{min-width:70px;height:54px;font-size:26px}
+      .miniCol{min-width:76px}
+      .miniCube{width:24px;height:24px;border-radius:8px}
+    }
+  </style>
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-pink-50">
+  <div class="max-w-6xl mx-auto px-4 py-6">
+    <!-- Header -->
+    <div class="bg-white/90 backdrop-blur rounded-3xl card p-6 border border-emerald-100">
+      <div class="text-center">
+        <div class="text-2xl md:text-3xl font-extrabold text-slate-800">مَعْنَى الضَّرْب</div>
+
+        <div class="mt-3 grid md:grid-cols-2 gap-3 w-full max-w-4xl mx-auto">
+          <div class="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3">
+            <div class="font-extrabold text-emerald-800">فِكْرَةُ الدَّرْسِ</div>
+            <div class="text-slate-700 font-bold mt-1">أستعملُ النماذجَ لأستكشفَ معنى الضرب.</div>
+          </div>
+          <div class="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3">
+            <div class="font-extrabold text-amber-800">المُفْرَدَات</div>
+            <div class="text-slate-700 font-bold mt-1">
+              الضرب • جملة الضرب • إشارة الضرب (×)
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-2 text-slate-600">
+          أجد عدد المكعبات الكلي باستخدام <b>مجموعات متساوية</b>، ثم أكتب <b>جملة الضرب</b>.
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="mt-6 flex flex-wrap gap-2 justify-center">
+        <button id="tab-learn" class="btn bg-pink-600 text-white">تعلم</button>
+        <button id="tab-examples" class="btn bg-white text-slate-700 border-2 border-pink-200">أمثلة بالنماذج</button>
+        <button id="tab-practice" class="btn bg-white text-slate-700 border-2 border-pink-200">تدرب</button>
+      </div>
+    </div>
+
+    <div class="mt-6">
+      <!-- Learn -->
+      <section id="section-learn" class="bg-white rounded-3xl card p-6 border border-emerald-100">
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="rounded-2xl p-4 bg-pink-50 border border-pink-100">
+            <div class="font-extrabold text-lg text-slate-800 mb-2">١) ما معنى الضرب؟</div>
+            <div class="text-slate-700 leading-7">
+              الضرب يعني <b>مجموعات متساوية</b>:
+              <div class="mt-2">
+                <span class="pill bg-white border border-pink-200 text-slate-700">عدد المجموعات</span>
+                <span class="pill bg-white border border-pink-200 text-slate-700">في كل مجموعة</span>
+                <span class="pill bg-white border border-pink-200 text-slate-700">المجموع الكلي</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="rounded-2xl p-4 bg-purple-50 border border-purple-100">
+            <div class="font-extrabold text-lg text-slate-800 mb-2">٢) كيف أكتب جملة الضرب؟</div>
+            <div class="text-slate-700 leading-7">
+              إذا كان لدي <b>٣ مجموعات</b> وفي كل مجموعة <b>٤</b> مكعبات:
+              <div class="mt-2 font-extrabold text-purple-700 text-xl" dir="ltr">٣ × ٤ = ١٢</div>
+              نقرأها: <b>ثلاث مجموعات في كل منها أربعة</b>.
+            </div>
+          </div>
+
+          <div class="rounded-2xl p-4 bg-amber-50 border border-amber-100">
+            <div class="font-extrabold text-lg text-slate-800 mb-2">٣) كيف أجد المجموع الكلي؟</div>
+            <div class="text-slate-700 leading-7">
+              أعدّ المكعبات أو أستخدم الضرب:
+              <b>عدد المجموعات × عدد المكعبات في كل مجموعة</b>.
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-5 rounded-2xl p-4 border border-slate-200 bg-slate-50">
+          <div class="font-extrabold text-slate-800 mb-2">تلميح ✅</div>
+          <div class="text-slate-700 leading-7">
+            إذا كان أحد العددين <b>٠</b> فالناتج <b>٠</b> (لا توجد مكعبات).
+          </div>
+        </div>
+      </section>
+
+      <!-- Examples -->
+      <section id="section-examples" class="hidden bg-white rounded-3xl card p-6 border border-emerald-100">
+        <div class="flex items-center justify-between flex-wrap gap-2 mb-4">
+          <div class="font-extrabold text-xl text-slate-800">أمثلة بالنماذج</div>
+          <div class="text-sm text-slate-500">اضغطي على المثال لعرض الحل</div>
+        </div>
+
+        <div id="examplesList" class="grid md:grid-cols-2 gap-4"></div>
+      </section>
+
+      <!-- Practice -->
+      <section id="section-practice" class="hidden bg-white rounded-3xl card p-6 border border-emerald-100">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <div class="font-extrabold text-xl text-slate-800">تدريب: اكتبي جملة الضرب</div>
+            <div class="text-slate-600">شاهدي المجموعات ثم اكتبي: (عدد المجموعات × في كل مجموعة = المجموع).</div>
+          </div>
+          <div class="rounded-2xl bg-slate-50 border border-slate-200 px-4 py-3">
+            <div class="font-bold text-slate-700">النتيجة</div>
+            <div class="text-slate-700">⭐ <span id="score">٠</span> / <span id="total">٠</span></div>
+          </div>
+        </div>
+
+        <div class="mt-6 grid lg:grid-cols-2 gap-6 items-start">
+          <!-- Problem -->
+          <div class="rounded-3xl border border-pink-100 bg-gradient-to-b from-white to-pink-50 p-5">
+            <div class="flex items-center justify-between mb-3">
+              <div class="font-extrabold text-slate-800">النموذج</div>
+              <button id="btnNew" class="btn bg-purple-600 text-white">سؤال جديد</button>
+            </div>
+
+            <div class="text-slate-700 font-bold text-center mb-3" id="prompt"></div>
+
+            <div id="modelArea" class="flex flex-wrap justify-center gap-4"></div>
+
+            <div class="mt-5 rounded-2xl bg-white border border-slate-200 p-4">
+              <div class="font-extrabold text-slate-800 text-center mb-3">اكتبي جملة الضرب:</div>
+
+              <!-- ✅ RTL equation: الناتج في اليسار، العملية في اليمين (مناسب للعربي) -->
+              <div class="flex flex-wrap items-center justify-center gap-3" dir="rtl">
+                <input id="inT" class="numInput border-pink-500 text-slate-800" inputmode="numeric" maxlength="3" placeholder="؟" />
+                <div class="eqBox border-slate-200 text-slate-600" dir="ltr">=</div>
+                <input id="inG" class="numInput border-pink-500 text-slate-800" inputmode="numeric" maxlength="2" placeholder="؟" />
+                <div class="eqBox border-slate-200 text-slate-600" dir="ltr">×</div>
+                <input id="inE" class="numInput border-pink-500 text-slate-800" inputmode="numeric" maxlength="2" placeholder="؟" />
+              </div>
+
+              <div class="mt-4 text-center text-sm text-slate-500">
+                اكتبِيها بهذا الشكل: <span dir="ltr" class="font-extrabold text-purple-700">المجموع = عدد المجموعات × في كل مجموعة</span>
+              </div>
+
+              <div class="mt-4 flex gap-3 justify-center">
+                <button id="btnCheck" class="btn bg-emerald-600 text-white w-44">تحقق ✅</button>
+                <button id="btnHint" class="btn bg-white border-2 border-purple-200 text-slate-700 w-44">تلميح 💡</button>
+              </div>
+
+              <div class="mt-3 flex justify-center">
+                <button id="btnShow" class="btn bg-white border-2 border-slate-200 text-slate-700 w-72">أظهر الحل</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Feedback -->
+          <div class="rounded-3xl border border-slate-200 bg-white p-5">
+            <div class="font-extrabold text-slate-800 mb-2">التغذية الراجعة والشرح</div>
+            <div id="feedback" class="text-slate-700 leading-7">
+              اكتبي الأعداد في جملة الضرب ثم اضغطي <b>تحقق</b>.
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Footer -->
+    <div class="mt-8 text-center text-slate-600">
+      <div class="bg-white/80 inline-block px-4 py-3 rounded-2xl border border-slate-200">
+        <span class="font-bold">أ/ فاطمة هزازي</span> • ملتقى معلمي ومعلمات الرياضيات • الملتقى التفاعلي
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ---------- Arabic helpers ----------
+    const ar = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
+    const toArabic = (n) => {
+      if (!Number.isFinite(n)) return '';
+      return String(Math.trunc(n)).split('').map(ch=>{
+        if (ch==='-') return '−';
+        const d = ch.charCodeAt(0)-48;
+        return (d>=0 && d<=9) ? ar[d] : ch;
+      }).join('');
+    };
+    const normDigits = (str) => {
+      if (str == null) return "";
+      const s = String(str).trim();
+      const map = {'٠':'0','١':'1','٢':'2','٣':'3','٤':'4','٥':'5','٦':'6','٧':'7','٨':'8','٩':'9','۰':'0','۱':'1','۲':'2','۳':'3','۴':'4','۵':'5','۶':'6','۷':'7','۸':'8','۹':'9'};
+      return s.split('').map(ch => map[ch] ?? ch).join('');
+    };
+    const randInt = (min,max)=>Math.floor(Math.random()*(max-min+1))+min;
+
+    // ---------- Tabs ----------
+    const tabs = [
+      {btn:'tab-learn', sec:'section-learn'},
+      {btn:'tab-examples', sec:'section-examples'},
+      {btn:'tab-practice', sec:'section-practice'}
+    ];
+    function setTab(activeBtnId){
+      tabs.forEach(t=>{
+        const b=document.getElementById(t.btn);
+        const s=document.getElementById(t.sec);
+        const active = t.btn===activeBtnId;
+        s.classList.toggle('hidden', !active);
+        b.className = active ? 'btn bg-pink-600 text-white' : 'btn bg-white text-slate-700 border-2 border-pink-200';
+      });
+    }
+    document.getElementById('tab-learn').onclick=()=>setTab('tab-learn');
+    document.getElementById('tab-examples').onclick=()=>setTab('tab-examples');
+    document.getElementById('tab-practice').onclick=()=>setTab('tab-practice');
+
+    // ---------- Examples with models ----------
+    const examples = [
+      {g:2,e:3},
+      {g:3,e:4},
+      {g:1,e:5},
+      {g:0,e:6},
+    ];
+
+    function renderMiniModel(g,e){
+      if (g===0){
+        return `<div class="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-700 font-bold">لا توجد مجموعات (٠).</div>`;
+      }
+      let cols = '';
+      for (let i=0;i<g;i++){
+        let cubes = '';
+        for (let j=0;j<e;j++){
+          cubes += `<div class="miniCube"></div>`;
+        }
+        cols += `
+          <div class="miniCol">
+            <div class="text-xs font-extrabold text-slate-700">مجموعة ${toArabic(i+1)}</div>
+            <div class="miniStack">${e===0?`<div class="text-slate-500 font-bold">٠</div>`:cubes}</div>
+            <div class="text-xs text-slate-600 font-bold">${toArabic(e)} مكعبات</div>
+          </div>
+        `;
+      }
+      return `<div class="flex flex-wrap justify-center gap-3">${cols}</div>`;
+    }
+
+    function exampleCard(g,e,idx){
+      const total = g*e;
+      return `
+        <div class="rounded-3xl border border-slate-200 bg-slate-50 p-5 cursor-pointer hover:shadow-lg transition" data-idx="${idx}">
+          <div class="font-extrabold text-slate-800 mb-2">مثال ${toArabic(idx+1)}</div>
+          <div class="text-slate-700 leading-7">${toArabic(g)} مجموعات، في كل مجموعة ${toArabic(e)} مكعبات.</div>
+
+          <div class="mt-3">${renderMiniModel(g,e)}</div>
+
+          <div id="ex-body-${idx}" class="hidden mt-4 rounded-2xl bg-white border border-slate-200 p-4 text-slate-700 leading-7">
+            <div><b>المجموع الكلي:</b> ${toArabic(total)}</div>
+            <div class="mt-2"><b>جملة الضرب:</b>
+              <span dir="ltr" class="font-extrabold text-purple-700">${toArabic(g)} × ${toArabic(e)} = ${toArabic(total)}</span>
+            </div>
+          </div>
+          <div class="mt-3 text-sm text-pink-600 font-bold">اضغطي لعرض/إخفاء الحل</div>
+        </div>
+      `;
+    }
+
+    function renderExamples(){
+      const container = document.getElementById('examplesList');
+      container.innerHTML = examples.map((x,i)=>exampleCard(x.g,x.e,i)).join('');
+      container.querySelectorAll('[data-idx]').forEach(el=>{
+        el.addEventListener('click', ()=>{
+          const idx = el.getAttribute('data-idx');
+          const box = document.getElementById(`ex-body-${idx}`);
+          box.classList.toggle('hidden');
+        });
+      });
+    }
+    renderExamples();
+
+    // ---------- Practice ----------
+    let state = { g:2, e:3, score:0, total:0, locked:false };
+
+    const scoreEl = document.getElementById('score');
+    const totalEl = document.getElementById('total');
+    const feedbackEl = document.getElementById('feedback');
+
+    function animateFeedback(kind){
+      feedbackEl.classList.remove('shake','pop');
+      void feedbackEl.offsetWidth;
+      feedbackEl.classList.add(kind==='good'?'pop':'shake');
+    }
+    function setFeedback(html, kind){
+      feedbackEl.innerHTML = html;
+      animateFeedback(kind);
+    }
+
+    function genTask(){
+      const edge = Math.random() < 0.15;
+      let g,e;
+      if (edge){
+        g = Math.random() < 0.5 ? 0 : randInt(1,8);
+        e = Math.random() < 0.5 ? 0 : randInt(1,8);
+      } else {
+        g = randInt(1,8);
+        e = randInt(1,8);
+      }
+      state.g = g;
+      state.e = e;
+      state.locked = false;
+      clearInputs();
+      renderModel();
+      setFeedback('اكتبي (المجموع = عدد المجموعات × في كل مجموعة).', 'good');
+    }
+
+    function clearInputs(){
+      ['inG','inE','inT'].forEach(id=>document.getElementById(id).value='');
+    }
+
+    function renderModel(){
+      const g = state.g, e = state.e;
+      const modelArea = document.getElementById('modelArea');
+      const prompt = document.getElementById('prompt');
+
+      prompt.textContent = `${toArabic(g)} مجموعات، في كل مجموعة ${toArabic(e)} مكعبات.`;
+
+      modelArea.innerHTML = '';
+      if (g === 0){
+        const empty = document.createElement('div');
+        empty.className = 'rounded-2xl border border-slate-200 bg-white px-5 py-4 text-slate-700 font-bold';
+        empty.textContent = 'لا توجد مجموعات (٠).';
+        modelArea.appendChild(empty);
+        return;
+      }
+      for (let i=0;i<g;i++){
+        const col = document.createElement('div');
+        col.className = 'groupCol';
+        col.innerHTML = `
+          <div class="text-slate-700 font-extrabold text-sm">مجموعة ${toArabic(i+1)}</div>
+          <div class="stack" aria-label="مكعبات"></div>
+          <div class="text-slate-600 font-bold text-sm">${toArabic(e)} مكعبات</div>
+        `;
+        const stack = col.querySelector('.stack');
+        if (e === 0){
+          const note = document.createElement('div');
+          note.className = 'text-slate-500 font-bold text-sm';
+          note.textContent = '٠';
+          stack.appendChild(note);
+        } else {
+          for (let j=0;j<e;j++){
+            const cube = document.createElement('div');
+            cube.className = 'cube';
+            stack.appendChild(cube);
+          }
+        }
+        modelArea.appendChild(col);
+      }
+    }
+
+    function readNumber(id){
+      const v = normDigits(document.getElementById(id).value).replace(/\D/g,'');
+      return v==='' ? null : parseInt(v,10);
+    }
+
+    function check(){
+      if (state.locked) return;
+      const gIn = readNumber('inG');
+      const eIn = readNumber('inE');
+      const tIn = readNumber('inT');
+
+      if (gIn===null || eIn===null || tIn===null){
+        setFeedback('⚠️ اكتبي الأعداد الثلاثة في جملة الضرب.', 'bad');
+        return;
+      }
+
+      const g = state.g, e = state.e, total = g*e;
+
+      state.total += 1;
+
+      // ✅ نقبل أيضاً تبديل العاملين (g×e أو e×g) لكن الناتج لازم صحيح
+      const okFactors = ( (gIn===g && eIn===e) || (gIn===e && eIn===g) );
+      const correct = okFactors && (tIn===total);
+
+      if (correct) state.score += 1;
+      scoreEl.textContent = toArabic(state.score);
+      totalEl.textContent = toArabic(state.total);
+
+      state.locked = true;
+
+      if (correct){
+        setFeedback(`
+          <div class="font-extrabold text-emerald-700 text-lg">أحسنتِ! ✅</div>
+          <div class="mt-2"><b>المجموع:</b> ${toArabic(total)}</div>
+          <div class="mt-2"><b>جملة الضرب:</b>
+            <span dir="ltr" class="font-extrabold text-purple-700">${toArabic(g)} × ${toArabic(e)} = ${toArabic(total)}</span>
+          </div>
+          <div class="mt-2">هذا يعني: <b>${toArabic(g)}</b> مجموعات، في كل مجموعة <b>${toArabic(e)}</b> مكعبات.</div>
+        `,'good');
+      } else {
+        setFeedback(`
+          <div class="font-extrabold text-rose-700 text-lg">حاولي مرة أخرى 💡</div>
+          <div class="mt-2"><b>الصحيح:</b> <span dir="ltr" class="font-extrabold text-purple-700">${toArabic(g)} × ${toArabic(e)} = ${toArabic(total)}</span></div>
+          <div class="mt-2">تذكري: عدد المجموعات × في كل مجموعة = المجموع الكلي.</div>
+        `,'bad');
+      }
+    }
+
+    function hint(){
+      const g = state.g, e = state.e;
+      setFeedback(`
+        <div class="font-extrabold text-slate-800">تلميح 💡</div>
+        <div class="mt-1">عددي عدد <b>المجموعات</b> (الأعمدة) = <b>${toArabic(g)}</b></div>
+        <div>وعددي المكعبات في <b>مجموعة واحدة</b> = <b>${toArabic(e)}</b></div>
+        <div class="mt-2">ثم احسبي: <span dir="ltr" class="font-extrabold text-purple-700">${toArabic(g)} × ${toArabic(e)}</span></div>
+      `,'good');
+    }
+
+    function show(){
+      const g = state.g, e = state.e, total = g*e;
+      setFeedback(`
+        <div class="font-extrabold text-slate-800">الحل ✅</div>
+        <div class="mt-2"><b>عدد المجموعات:</b> ${toArabic(g)}</div>
+        <div><b>في كل مجموعة:</b> ${toArabic(e)}</div>
+        <div class="mt-2"><b>جملة الضرب:</b> <span dir="ltr" class="font-extrabold text-purple-700">${toArabic(g)} × ${toArabic(e)} = ${toArabic(total)}</span></div>
+      `,'good');
+    }
+
+    // Input behaviors
+    ['inG','inE','inT'].forEach(id=>{
+      const el = document.getElementById(id);
+      el.addEventListener('input', ()=>{
+        const raw = normDigits(el.value).replace(/\D/g,'');
+        el.value = raw.slice(0, id==='inT' ? 3 : 2);
+      });
+      el.addEventListener('keydown', (e)=>{
+        if (e.key==='Enter') check();
+      });
+    });
+
+    document.getElementById('btnNew').onclick = genTask;
+    document.getElementById('btnCheck').onclick = check;
+    document.getElementById('btnHint').onclick = hint;
+    document.getElementById('btnShow').onclick = show;
+
+    // init
+    scoreEl.textContent = toArabic(0);
+    totalEl.textContent = toArabic(0);
+    genTask();
+    setTab('tab-learn');
+  </script>
+</body>
+</html>
